@@ -1,0 +1,74 @@
+TODO
+
+[ ] Eliminar de las palabras las letras únicas "a", "b", "c"
+[ ] Excluir palabras/librerias que solo aparecen una vez
+[ ] Eliminar la librerie re de la lista de librerias de terceros
+
+
+[ ] Evaluar el numero de palabras de las descripciones (montar alguna grafica o algo así)
+    [ ] Eliminar los proyectos con descripciones cortas
+[ ] Crear un modelo de evaluación para el modelo CountVectorizer
+
+
+[X] Indicar porque no es apropiado usar LSI para documetnos pequeños
+[X] Cambiar las librerías usadas en la prueba de concepto, poner alguna de las de los proyectos
+[X] Verificar si poner LSA o LSI
+[X] Detección del idioma del projecto
+[X] Excluir las librerías del sistema
+[X] Incluir solo las librerias de terceros
+[X] Indicar el porque del limite de los numero de topicos a probar http://miningthedetails.com/blog/python/lda/GensimLDA/
+
+
+
+
+
+
+[X] Cuando se esta procesando un readme para descomponerlo en sus palabras descartar las palabras que sean numeros 4000
+[X] Excluir las librerias que empiecen por "." , ejemplo "..common"
+[X] Montar sistema para evaluar un modelo
+[X] Incluir la descomposición de palabras en el "pipeline"
+[X] Limpiar los ficheros readme vacios o con una longitud pequeña
+[X] Generar los conjuntos de train/test de forma aleatoria
+[X] Tratar los imports con comas lib1,lib2,lib3
+[X] Excluir los proyectos que no tengan librerias
+
+db.projects.aggregate([{"$group" : {_id:"$pipeline_status", count:{$sum:1}}}])
+
+
+* https://github.com/RaRe-Technologies/gensim/blob/develop/docs/notebooks/lda_training_tips.ipynb
+* https://radimrehurek.com/gensim/models/coherencemodel.html
+* https://rare-technologies.com/what-is-topic-coherence/
+* https://radimrehurek.com/gensim/models/coherencemodel.html
+
+
+
+
+https://api.github.com/search/repositories?q=language:python&sort=stars&order=desc
+"total_count": 1903990,
+"incomplete_results": false
+
+https://developer.github.com/v3/search/#search-repositories
+
+https://api.github.com/search/repositories?q=language:Python+created:>=2012-01-01&type=Repositories
+
+https://api.github.com/search/repositories?q=language:Python+created:>=2012-01-01+stars:>=1&type=Repositories
+$ curl https://raw.githubusercontent.com/vinta/awesome-python/master/README.md
+
+
+"total_count": 49150,
+
+cursor=db.images.find({}{'id':1,'image_path':1,'_id':0},no_cursor_timeout=True)
+for i in cursor:
+   .....
+   .....+
+cursor.close() # use this or cursor keeps waiting so ur resources are used up
+
+
+
+g.updateMany({}, {$set: {done: false}})
+
+
+1244 + 4151 new projects
+
+
+borrado: 27023865
