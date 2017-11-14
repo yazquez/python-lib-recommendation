@@ -11,8 +11,8 @@ FILE_LANGUAGE_EXTENSION = ".py"
 
 def get_repository_projects():
     client = MongoClient('localhost', 27017)
-    db = client.github_t5
-    #db = client.tfm_data
+    # db = client.github_t5
+    db = client.tfm_data
     return db.projects
 
 
@@ -58,7 +58,11 @@ def process_readme_file(project, file_path):
 
 repository_projects = get_repository_projects()
 
-for project in repository_projects.find({'pipeline_status':'CLONED'}):
+if not os.path.isdir(ROOT_PATH):
+    print("Root path does not exist")
+    exit(0)
+
+for project in repository_projects.find({'pipeline_status': 'INITIAL'}):
     try:
         path = ROOT_PATH + "/" + str(project["id"])
         if os.path.isdir(path):
@@ -74,6 +78,9 @@ for project in repository_projects.find({'pipeline_status':'CLONED'}):
                     except:
                         pass
             project['pipeline_status'] = 'PROCESSED'
+            repository_projects.update({'_id': project['_id']}, {"$set": project}, upsert=False)
+        else:
+            project['pipeline_status'] = 'INITIAL'
             repository_projects.update({'_id': project['_id']}, {"$set": project}, upsert=False)
     except:
         print("Error procesing project {0} [{1}] - {2}".format(project['id'], project['name'], sys.exc_info()[0]))
