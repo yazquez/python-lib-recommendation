@@ -62,7 +62,7 @@ if not os.path.isdir(ROOT_PATH):
     print("Root path does not exist")
     exit(0)
 
-for project in repository_projects.find({'pipeline_status': 'INITIAL'}):
+for project in repository_projects.find({'pipeline_status': 'CLONED'}):
     try:
         path = ROOT_PATH + "/" + str(project["id"])
         if os.path.isdir(path):

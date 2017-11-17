@@ -11,12 +11,12 @@ stemmer = SnowballStemmer("english")
 
 def get_repository_projects():
     client = MongoClient('localhost', 27017)
-    db = client.github_t5
+    db = client.tfm_data
     return db.projects
 
 def get_repository_library():
     client = MongoClient('localhost', 27017)
-    db = client.github_t5
+    db = client.tfm_data
     return db.library
 
 
@@ -51,29 +51,30 @@ def process_library(library):
             library_processed.append(lib)
     return library_processed
 
-
 repository_projects = get_repository_projects()
 repository_library = get_repository_library()
 
-
 for project in repository_projects.find({'pipeline_status': 'PROCESSED'}):
     try:
-        print("Processing", project["name"])
-        project['pipeline_status'] = 'DONE'
+        print("Processing",project["name"])
         project['readme_words'] = get_words(project['readme_txt'])
         project['library'] = process_library(project['library'])
+        project['pipeline_status'] = 'DONE'
 
-        #repository_projects.update({'_id': project['_id']}, {"$set": project}, upsert=False)
+        repository_projects.update({'_id': project['_id']}, {"$set": project}, upsert=False)
     except:
         print("Error procesing project {0} [{1}] - {2}".format(project['id'], project['name'], sys.exc_info()[0]))
         pass
 
 
-exit()
 # Finalmente eliminaremos de nuestro repositorio los proyectos que no tienen librerías o que no tienen ningun elemento en su lista de palabras (la descomposición de los ficheros **readme**)
 
-for project in repository_projects.find():
+i = 0
+for project in repository_projects.find({'pipeline_status': 'DONE'}):
     if len(project['library']) == 0 or len(project['readme_words']) == 0:
+        i += 1
         print("Deleting",project["name"])
         repository_projects.delete_one({'id': project["id"]})
+
+print("Projects deleted:", i)
 

@@ -2,14 +2,14 @@ TODO
 
 [ ] Eliminar de las palabras las letras únicas "a", "b", "c"
 [ ] Excluir palabras/librerias que solo aparecen una vez
-[ ] Eliminar la librerie re de la lista de librerias de terceros
+[X] Eliminar la librerie re de la lista de librerias de terceros
 
 
 [ ] Evaluar el numero de palabras de las descripciones (montar alguna grafica o algo así)
-    [ ] Eliminar los proyectos con descripciones cortas
-[ ] Crear un modelo de evaluación para el modelo CountVectorizer
+[ ] Eliminar los proyectos con descripciones cortas
 
 
+[X] Crear un modelo de evaluación para el modelo CountVectorizer
 [X] Indicar porque no es apropiado usar LSI para documetnos pequeños
 [X] Cambiar las librerías usadas en la prueba de concepto, poner alguna de las de los proyectos
 [X] Verificar si poner LSA o LSI
@@ -72,3 +72,10 @@ g.updateMany({}, {$set: {done: false}})
 
 
 borrado: 27023865
+
+db.projects.aggregate([{"$group" : {_id:"$pipeline_status", count:{$sum:1}}}])
+
+db.projects_2.aggregate([{$project: {item: 1,librarySize: { $size: "$library" }}}])
+
+db.projects_2.aggregate([{$match: {"library" : "re"}},{$group: {_id: null, count: {$sum: 1}}}])
+
