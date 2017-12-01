@@ -1,37 +1,3 @@
-TODO
-
-[ ] Eliminar de las palabras las letras únicas "a", "b", "c"
-[ ] Excluir palabras/librerias que solo aparecen una vez
-[X] Eliminar la librerie re de la lista de librerias de terceros
-
-
-[ ] Evaluar el numero de palabras de las descripciones (montar alguna grafica o algo así)
-[ ] Eliminar los proyectos con descripciones cortas
-
-
-[X] Crear un modelo de evaluación para el modelo CountVectorizer
-[X] Indicar porque no es apropiado usar LSI para documetnos pequeños
-[X] Cambiar las librerías usadas en la prueba de concepto, poner alguna de las de los proyectos
-[X] Verificar si poner LSA o LSI
-[X] Detección del idioma del projecto
-[X] Excluir las librerías del sistema
-[X] Incluir solo las librerias de terceros
-[X] Indicar el porque del limite de los numero de topicos a probar http://miningthedetails.com/blog/python/lda/GensimLDA/
-
-
-
-
-
-
-[X] Cuando se esta procesando un readme para descomponerlo en sus palabras descartar las palabras que sean numeros 4000
-[X] Excluir las librerias que empiecen por "." , ejemplo "..common"
-[X] Montar sistema para evaluar un modelo
-[X] Incluir la descomposición de palabras en el "pipeline"
-[X] Limpiar los ficheros readme vacios o con una longitud pequeña
-[X] Generar los conjuntos de train/test de forma aleatoria
-[X] Tratar los imports con comas lib1,lib2,lib3
-[X] Excluir los proyectos que no tengan librerias
-
 db.projects.aggregate([{"$group" : {_id:"$pipeline_status", count:{$sum:1}}}])
 
 
